@@ -1,0 +1,11 @@
+package acts;
+
+public class Principal {
+
+	public static void main(String[] args) {
+		Vista vista = new Vista();
+		model model = new model();
+		Controlador controlador = new Controlador(vista, model);
+	}
+}
+

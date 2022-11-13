@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conexiones>
+
+	<conexion>
+
+		<host> localhost </host>
+
+		<usuario> Pablito navarro </usuario>
+
+		<contrasenya> 1999 </contrasenya>
+
+		<puerto> editorial paco </puerto>
+
+
+	</conexion>
+
+</conexiones>

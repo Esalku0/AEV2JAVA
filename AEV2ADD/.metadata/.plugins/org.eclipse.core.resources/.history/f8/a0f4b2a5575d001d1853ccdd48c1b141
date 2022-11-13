@@ -1,0 +1,32 @@
+package acts;
+
+
+import org.w3c.dom.*;
+import javax.xml.parsers.*;
+import java.io.*;
+
+public class proba {
+	public static void main(String[] args) {
+		try {
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document document = dBuilder.parse(new File("./conexiones.xml"));
+			Element raiz = document.getDocumentElement();
+			System.out.println("Contingut XML " + raiz.getNodeName() + ":");
+			NodeList nodeList = document.getElementsByTagName("conexion");
+			for (int i = 0; i < nodeList.getLength(); i++) {
+				Node node = nodeList.item(i);
+				System.out.println("");
+				if (node.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) node;
+					System.out.println("ID ARTICULO : " + eElement.getAttribute("id"));
+					System.out.println("Nombre : " + eElement.getElementsByTagName("nombre").item(0).getTextContent());
+					System.out.println(
+							"descripcion : " + eElement.getElementsByTagName("descripcion").item(0).getTextContent());
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

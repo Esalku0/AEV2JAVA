@@ -1,0 +1,203 @@
+package acts;
+
+import org.w3c.dom.*;
+import org.xml.sax.SAXException;
+
+import com.mysql.cj.xdevapi.Statement;
+
+import javax.swing.JOptionPane;
+import javax.xml.parsers.*;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import java.awt.Component;
+import java.awt.Dialog;
+import java.io.*;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Scanner;
+
+public class model {
+
+	private static String host;
+	private static String usuari;
+	private static String contrasenya = "";
+	private static String port;
+	private static int port2;
+	private static String nom;
+	protected static final Component JFrame = null;
+	private static Connection conexion;
+
+	public static boolean InicioSesion(String user, String pass) {
+
+		boolean respuesta = false;
+
+		try {
+
+			java.sql.Statement stmt = conexion.createStatement();
+
+			String plaintext = pass;
+			MessageDigest m = MessageDigest.getInstance("MD5");
+			m.reset();
+			m.update(plaintext.getBytes());
+			byte[] digest = m.digest();
+			BigInteger bigInt = new BigInteger(1, digest);
+			String hashtext = bigInt.toString(16);
+			while (hashtext.length() < 32) {
+				hashtext = "0" + hashtext;
+
+			}
+
+			ResultSet rs = stmt
+					.executeQuery("SELECT * FROM users WHERE user = '" + user + "' AND pass = '" + hashtext + "'");
+
+			if (rs.next()) {
+				if (rs.getRow() > 0) {
+					respuesta = true;
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return respuesta;
+	}
+
+	public static String realizarConsulta(String consulta) {
+		String text = "";
+		int cont = 0;
+
+		try {
+
+			if (consulta.contains("select") || consulta.contains("SELECT")) {
+				java.sql.Statement stmt = conexion.createStatement();
+				ResultSet rs = ((java.sql.Statement) stmt).executeQuery(consulta);
+				int columnas = rs.getMetaData().getColumnCount();
+				while (rs.next()) {
+					for (int i = 1; i <= columnas; i++) {
+						text += rs.getString(i) + "\t";
+						cont++;
+						if (cont == columnas) {
+							text += "\n";
+							cont = 0;
+						}
+					}
+				}
+				rs.close();
+			} else {
+				PreparedStatement ejecutar = conexion.prepareStatement(consulta);
+				int realizar = ejecutar.executeUpdate();
+				ejecutar.close();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return text;
+	}
+
+	public static String mostrarTotesLesTaules() {
+		String resultadoString = "";
+		int cont = 0;
+		try {
+			String consulta = "SHOW tables FROM books;";
+
+			java.sql.Statement stmt = conexion.createStatement();
+			ResultSet rs = stmt.executeQuery(consulta);
+
+			int columnas = rs.getMetaData().getColumnCount();
+			while (rs.next()) {
+				for (int i = 1; i <= columnas; i++) {
+					resultadoString += rs.getString(i) + "\t" + "jitanos";
+					
+					if (cont == columnas) {
+						resultadoString += "\n";
+						cont = 0;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultadoString;
+	}
+
+	public static String mostrarInfoTaula(String taula) {
+		String resultado = "";
+		
+		try {
+			String consulta = "SHOW COLUMNS FROM " + taula;
+
+			java.sql.Statement stmt = conexion.createStatement();
+			ResultSet rs = stmt.executeQuery(consulta);
+
+			int columnas = rs.getMetaData().getColumnCount();
+			while (rs.next()) {
+				for (int i = 1; i <= columnas; i++) {
+					resultado += rs.getString(i) + "\t";
+
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultado;
+	}
+
+	public static Connection conexioBBDD() {
+		String url = "";
+		String usuari = "";
+		String contrasenya = "";
+		Connection con = null;
+		try {
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document document = dBuilder.parse(new File("contenido.xml"));
+
+			Element raiz = document.getDocumentElement();
+			NodeList nodeList = document.getElementsByTagName("conexio");
+			for (int i = 0; i < nodeList.getLength(); i++) {
+				Node node = nodeList.item(i);
+				if (node.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) node;
+					url = eElement.getElementsByTagName("url").item(0).getTextContent();
+					usuari = eElement.getElementsByTagName("usuari").item(0).getTextContent();
+					contrasenya = eElement.getElementsByTagName("contrasenya").item(0).getTextContent();
+				}
+			}
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			con = DriverManager.getConnection(url, usuari, contrasenya);
+			conexion=con;
+			return con;
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(JFrame, e);
+
+		}
+		return con;
+	}
+
+	public void cerrarConexion() {
+		try {
+			conexioBBDD().close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}

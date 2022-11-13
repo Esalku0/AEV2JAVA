@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<conexio>
+	<url>jdbc:mysql://127.0.0.1:3307/Esalku</url>
+	<usuari>root</usuari>
+	<contrasenya></contrasenya>
+</conexio>

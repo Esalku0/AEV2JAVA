@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bbdd>
+	<conexion id="1">
+		<host> localhost </host>
+		<usuario> root </usuario>
+		<contrasenya> "" </contrasenya>
+		<puerto> 3306 </puerto>
+		<nombre> books </nombre>
+	</conexion>
+
+</bbdd>

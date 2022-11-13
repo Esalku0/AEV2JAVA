@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conexiones>
+
+	<conexion>
+
+		<host> rafeta escopeta </host>
+
+		<usuario> Pablito navarro </usuario>
+
+		<contrasenya> 1999 </contrasenya>
+
+		<puerto> editorial paco </puerto>
+
+		<pagines> 69 </pagines>
+
+	</conexion>
+
+	<conexion>
+
+		<titulo>rafael raga</titulo>
+
+		<autor>rafael raga</autor>
+
+		<any>2002</any>
+
+		<editorial>pakito</editorial>
+
+		<pagines>90</pagines>
+
+	</conexion>
+
+</conexiones>

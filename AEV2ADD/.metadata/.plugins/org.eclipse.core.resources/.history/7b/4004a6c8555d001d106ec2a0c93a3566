@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conexiones>
+
+	<conexion>
+
+		<host> localhost </host>
+
+		<usuario> root </usuario>
+
+		<contrasenya> "" </contrasenya>
+
+		<puerto> 3306 </puerto>
+
+
+	</conexion>
+
+</conexiones>

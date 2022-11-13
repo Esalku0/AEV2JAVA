@@ -1,0 +1,152 @@
+package acts;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.EventHandler;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.sql.Connection;
+import java.text.StringCharacterIterator;
+import java.util.ArrayList;
+
+import javax.crypto.Cipher;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
+import javax.swing.text.Highlighter.HighlightPainter;
+import com.mysql.cj.xdevapi.Statement;
+
+import javax.xml.parsers.*;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import java.io.*;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Controlador {
+
+	private Vista vista;
+	private model model;
+	private String ruta;
+
+	public Controlador(Vista vista, model mode) {
+		this.vista = vista;
+		this.model = mode;
+		initEventHandler();
+	}
+	
+	
+	
+	private void initEventHandler() {
+
+		ActionListener botonMostrar = new ActionListener() {
+		
+			public void actionPerformed(ActionEvent e) {
+			
+				Connection con = model.conexioBBDD();
+				String textoString = model.mostrarTotesLesTaules(con);
+				System.out.println(textoString);
+
+				vista.getTxtContenido().setText(textoString);
+			}
+		};
+	
+		vista.getBtnMostrarTablas().addActionListener(botonMostrar);
+	
+	
+	
+		ActionListener btnEstructura = new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+		
+				Connection con = model.conexioBBDD();
+				String textoString = vista.getTxtNombreTabla().getText();
+				
+				String aString = model.mostrarInfoTaula(con, textoString);
+				
+				vista.getTxtContenido().setText(aString);
+			}
+		};
+	
+		vista.getBtnEstructuraTabla().addActionListener(btnEstructura);
+	
+
+		ActionListener botonLogin = new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				Connection con = model.conexioBBDD();
+				
+				String usuari = vista.getTxtUsuari().getText();
+				String pass = vista.getTxtContrasenya().getText();
+
+				acts.model.InicioSesion(con, usuari, pass);
+				if (acts.model.InicioSesion(con, usuari, pass)) {
+					JOptionPane.showMessageDialog(null, "todo bien manin");
+					vista.getTxtConsulta().setVisible(true);
+					vista.getBtnEstructuraTabla().setVisible(true);
+					vista.getScrollPane().setVisible(true);
+					vista.	getLblTablaInfo().setVisible(true);
+					vista.getTxtNombreTabla().setVisible(true);
+					vista.getTxtContenido().setVisible(true);
+					vista.getBtnEjecutarConsulta().setVisible(true);
+				}else {
+					JOptionPane.showMessageDialog(null, "ERROR");
+				}
+			}
+		};
+	
+		vista.getBtnLogin().addActionListener(botonLogin);
+		
+	
+	
+		ActionListener botonEjecutarConsulta = new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				Connection con = model.conexioBBDD();
+				
+				String consulta = vista.getTxtConsulta().getText();
+
+					model.realizarConsulta(con, consulta);
+
+					vista.getTxtContenido().setText(model.realizarConsulta(con, consulta));
+					
+			}
+		};
+	
+		vista.getBtnEjecutarConsulta().addActionListener(botonEjecutarConsulta);
+		
+		
+		
+		ActionListener CerrarConexion = new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+
+					model.cerrarConexion();
+
+					
+			}
+		};
+	
+		vista.getbtnCerrarConexion().addActionListener(CerrarConexion);
+		
+}}

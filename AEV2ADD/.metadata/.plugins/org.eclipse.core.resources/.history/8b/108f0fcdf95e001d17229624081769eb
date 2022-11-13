@@ -1,0 +1,139 @@
+package acts;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.Color;
+import javax.swing.JTextField;
+import javax.security.auth.login.LoginContext;
+import javax.swing.JButton;
+import javax.swing.JTextArea;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class Vista extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField txtConsulta;
+	private JButton btnEjecutarConsulta;
+	private JTextField txtUsuari;
+	private JTextField txtContrasenya;
+	private JButton btnLogin;
+	private JTextArea txtContenido;
+	private JButton btnMostrarTablas;
+	private JButton btnEstructuraTabla;
+	private JTextField txtNombreTabla;
+
+	public Vista() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 823, 501);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(65, 121, 190));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+
+		txtConsulta = new JTextField();
+		txtConsulta.setBounds(252, 29, 414, 37);
+		contentPane.add(txtConsulta);
+		txtConsulta.setColumns(10);
+
+		btnEjecutarConsulta = new JButton("EJECUTAR");
+		btnEjecutarConsulta.setBounds(676, 29, 105, 37);
+		contentPane.add(btnEjecutarConsulta);
+
+		txtContenido = new JTextArea();
+		txtContenido.setBounds(252, 77, 529, 274);
+		contentPane.add(txtContenido);
+
+		txtUsuari = new JTextField();
+		txtUsuari.setBounds(10, 24, 105, 20);
+		contentPane.add(txtUsuari);
+		txtUsuari.setColumns(10);
+
+		txtContrasenya = new JTextField();
+		txtContrasenya.setColumns(10);
+		txtContrasenya.setBounds(10, 55, 105, 20);
+		contentPane.add(txtContrasenya);
+
+		btnLogin = new JButton("LOGIN");
+		btnLogin.setBounds(125, 32, 98, 31);
+		contentPane.add(btnLogin);
+		
+		 btnMostrarTablas = new JButton("Mostrar Tablas");
+		btnMostrarTablas.setBounds(646, 394, 128, 37);
+		contentPane.add(btnMostrarTablas);
+		
+		btnEstructuraTabla = new JButton("Tabla info");
+		btnEstructuraTabla.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnEstructuraTabla.setBounds(125, 118, 98, 37);
+		contentPane.add(btnEstructuraTabla);
+		
+		txtNombreTabla = new JTextField();
+		txtNombreTabla.setColumns(10);
+		txtNombreTabla.setBounds(10, 126, 105, 20);
+		contentPane.add(txtNombreTabla);
+		setVisible(false);
+	}
+	
+	public void Login() {
+
+	 
+		        String nombre;
+		         
+		  
+		        nombre=JOptionPane.showInputDialog("Introduce tu nombre");
+		         
+	
+		        System.out.println(nombre);     
+				setVisible(true);  
+				vista().setVisible(true)
+	}
+
+	public JPanel getContentPane() {
+		return contentPane;
+	}
+
+	public JTextField getTxtConsulta() {
+		return txtConsulta;
+	}
+
+	public JButton getBtnEjecutarConsulta() {
+		return btnEjecutarConsulta;
+	}
+
+	public JTextField getTxtUsuari() {
+		return txtUsuari;
+	}
+
+	public JTextField getTxtContrasenya() {
+		return txtContrasenya;
+	}
+
+	public JButton getBtnLogin() {
+		return btnLogin;
+	}
+
+	public JTextArea getTxtContenido() {
+		return txtContenido;
+	}
+	
+	public JButton getBtnMostrarTablas() {
+		return btnMostrarTablas;
+	}
+
+	public JButton getBtnEstructuraTabla() {
+		return btnEstructuraTabla;
+	}
+
+	public JTextField getTxtNombreTabla() {
+		return txtNombreTabla;
+	}
+}

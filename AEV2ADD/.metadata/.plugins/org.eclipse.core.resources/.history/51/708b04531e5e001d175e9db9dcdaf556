@@ -1,0 +1,76 @@
+package acts;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.Color;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JTextArea;
+
+public class Vista extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField txtConsulta;
+	private JButton btnEjecutarConsulta;
+	private JTextField txtUsuari;
+	private JTextField txtContrasenya;
+	private JButton btnLogin;
+	private JTextArea txtContenido;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Vista frame = new Vista();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	public Vista() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 823, 501);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(65, 121, 190));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		txtConsulta = new JTextField();
+		txtConsulta.setBounds(240, 97, 414, 37);
+		contentPane.add(txtConsulta);
+		txtConsulta.setColumns(10);
+		
+		btnEjecutarConsulta = new JButton("EJECUTAR");
+		btnEjecutarConsulta.setBounds(664, 97, 105, 37);
+		contentPane.add(btnEjecutarConsulta);
+		
+		 txtContenido = new JTextArea();
+		txtContenido.setBounds(240, 163, 529, 274);
+		contentPane.add(txtContenido);
+		
+		txtUsuari = new JTextField();
+		txtUsuari.setBounds(10, 24, 105, 20);
+		contentPane.add(txtUsuari);
+		txtUsuari.setColumns(10);
+		
+		txtContrasenya = new JTextField();
+		txtContrasenya.setColumns(10);
+		txtContrasenya.setBounds(10, 55, 105, 20);
+		contentPane.add(txtContrasenya);
+		
+		btnLogin = new JButton("EJECUTAR");
+		btnLogin.setBounds(125, 32, 98, 31);
+		contentPane.add(btnLogin);
+	}
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tienda>
+		<articulo id="1">
+			<nombre> Lejia </nombre>
+			<descripcion> Botella de lejia para lavar </descripcion>
+		</articulo>
+		<articulo id="2">
+			<nombre> Pan </nombre>
+			<descripcion> Barra de pan de harina </descripcion>
+		</articulo>
+		<articulo id="3">
+			<nombre> gafas de rafael </nombre>
+			<descripcion> gafas del tio rafa </descripcion>
+		</articulo>
+</tienda>

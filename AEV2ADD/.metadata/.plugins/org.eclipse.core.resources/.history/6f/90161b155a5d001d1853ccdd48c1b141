@@ -1,0 +1,79 @@
+package acts;
+
+import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+
+import javax.lang.model.element.Element;
+import javax.swing.text.Document;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.*;
+
+public class Model {
+
+	public static void conexion() {
+		String host = null;
+		String usuari = null;
+		String contrasenya = null;
+		String port = null;
+		String nom = null;
+		try {
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			org.w3c.dom.Document document = dBuilder.parse(new File("./conexiones.xml"));
+			org.w3c.dom.Element raiz = document.getDocumentElement();
+			System.out.println("Contingut XML " + raiz.getNodeName() + ":");
+			NodeList nodeList = document.getElementsByTagName("conexiones");
+			for (int i = 0; i < nodeList.getLength(); i++) {
+				Node node = nodeList.item(i);
+				System.out.println("");
+				if (node.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) node;
+
+					host = ((org.w3c.dom.Document) eElement).getElementsByTagName("host").item(0).getTextContent();
+
+					usuari = ((org.w3c.dom.Document) eElement).getElementsByTagName("usuario").item(0).getTextContent();
+
+					contrasenya = ((org.w3c.dom.Document) eElement).getElementsByTagName("contrasenya").item(0)
+							.getTextContent();
+
+					port = ((org.w3c.dom.Document) eElement).getElementsByTagName("puerto").item(0).getTextContent();
+					nom = ((org.w3c.dom.Document) eElement).getElementsByTagName("nombre").item(0).getTextContent();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:mysql://" + host + ":" + port + "/" + nom + ", " + usuari + "," + contrasenya);
+			System.out.println(con);
+			java.sql.Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM libros");
+			while (rs.next()) {
+				System.out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3));
+			}
+
+			rs.close();
+			stmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void main(String[] args) {
+		conexion();
+	}
+	
+
+	}
+
+

@@ -1,0 +1,53 @@
+package acts;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.Color;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+
+public class Vista extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField txtConsulta;
+	private JButton btnEjecutarConsulta;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Vista frame = new Vista();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	public Vista() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 846, 501);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(65, 121, 190));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		txtConsulta = new JTextField();
+		txtConsulta.setBounds(29, 27, 373, 37);
+		contentPane.add(txtConsulta);
+		txtConsulta.setColumns(10);
+		
+		btnEjecutarConsulta = new JButton("EJECUTAR");
+		btnEjecutarConsulta.setBounds(412, 27, 105, 37);
+		contentPane.add(btnEjecutarConsulta);
+	}
+}

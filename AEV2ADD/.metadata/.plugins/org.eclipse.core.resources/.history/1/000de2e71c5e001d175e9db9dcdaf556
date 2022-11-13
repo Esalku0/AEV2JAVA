@@ -1,0 +1,24 @@
+package acts;
+
+public class Controlador {
+
+	private Vista vista;
+	private Model model;
+	private String ruta;
+
+	public Controlador(Vista vista, Model mode) {
+		this.vista = vista;
+		this.model = mode;
+		initEventHandler();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

@@ -1,0 +1,45 @@
+package acts;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+
+public class Controlador {
+
+	private Vista vista;
+	private model model;
+	private String ruta;
+
+	public Controlador(Vista vista, model mode) {
+		this.vista = vista;
+		this.model = mode;
+		initEventHandler();
+	}
+	
+	
+	
+	private void initEventHandler() {
+
+		ActionListener anyadirActionListener = new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+						
+
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		};
+		vista.getTxtContenido().addActionListener(anyadirActionListener);
+		
+	}
+	
+	
+	
+	
+	
+	
+}
